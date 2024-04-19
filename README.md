@@ -1,3 +1,5 @@
+1. (Changes gor new projects)
+
 video-1 (Fewer Config Files)
 
 You don't have to change anything in your skeleton to upgrade to Laravel 11. However, the first thing you'll likely notice when creating a new Laravel 11 project is the lack of... files! For example, a number of config files have been removed out of the box. How will this affect you? Let's take a look.
@@ -63,5 +65,17 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
+
+--------------------------------------------------------------------------------
+
+video-2 (Streamlined Scheduling)
+
+With all Kernel classes removed in Laravel 11, how do we schedule background tasks? It’s super simple, thanks to a shiny new Schedule facade.
+
+just write this command of schedule facade in console file in routes directory.
+```Schedule::command('module:prune')->daily();```
+
+then you can check in cmd by write command
+```php artisan schedule:list```
 
 --------------------------------------------------------------------------------
