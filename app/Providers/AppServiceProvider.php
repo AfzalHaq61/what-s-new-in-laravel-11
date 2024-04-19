@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
+use Illuminate\Foundation\Http\Middleware\TrimStrings;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        TrimStrings::except(['secret']);
+
+        RedirectIfAuthenticated::redirectUsing(fn($request) => route('dashboard'));
     }
 }
