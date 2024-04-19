@@ -79,3 +79,28 @@ then you can check in cmd by write command
 ```php artisan schedule:list```
 
 --------------------------------------------------------------------------------
+
+video-3 (Installing an API)
+
+If you look in the routes directory, you’ll notice that there are a couple of files missing, including api.php. Don’t panic, when you need an API for your app, it’s just an Artisan command away.
+
+paste this command in terminal for api
+```php artisan install:api```
+
+i will install all the neceassray files including sanctum if you need another provider for api then use that one.
+
+added HasApiToken to User model
+
+if you wan to added middleware to it then do it like this
+
+->withMiddleware(function (Middleware $middleware) {
+        $middleware->web([LoginMiddleware::class])->statefulApi();
+    })
+
+
+paste this command in terminal for broadcasting routes
+```php artisan install:broadcast```
+
+it will install all the files related to broadcast events
+
+--------------------------------------------------------------------------------
