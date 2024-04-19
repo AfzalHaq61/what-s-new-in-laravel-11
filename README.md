@@ -104,3 +104,11 @@ paste this command in terminal for broadcasting routes
 it will install all the files related to broadcast events
 
 --------------------------------------------------------------------------------
+
+video-3 (Sqlite Out of the Box)
+
+Here's a little change that I think explains the entire ethos behind the skeleton changes found in Laravel 11 - SQLite is now configured out of the box.
+
+mean that by default the database will be sqlite you have to change it to mysql.
+
+--------------------------------------------------------------------------------
