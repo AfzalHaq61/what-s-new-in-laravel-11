@@ -6,10 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    $car = new Car('Toyota', 'Camry', 2022);
-    $car->dump();
-
-    User::latest()->limit(5)->dump()->get();
+    return User::with('latestPosts')->get();
 
     return view('welcome')->name('dashboard');
 });

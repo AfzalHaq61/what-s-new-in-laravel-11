@@ -113,7 +113,7 @@ mean that by default the database will be sqlite you have to change it to mysql.
 
 --------------------------------------------------------------------------------
 
-video-5 (The Dumpable Trait)
+video-6 (The Dumpable Trait)
 
 A number of classes in Laravel have dump and dd methods available for quick debugging. With Laravel 11, it’s a breeze to add the same functionality to your own classes.
 
@@ -124,6 +124,8 @@ dd
 which stands for "Dump and Die." It's a helper function used for debugging purposes. When you call dd() in your Laravel code, it will display the contents of the variable or expression passed to it and then terminate the script execution.
 
 we cam also use in between the queries like this
+we can chain it to query
+but its only work in laravel 11
 User::latest()->limit(5)->dd()->get();
 
 in laravel 11 its not a helper funciton but its a trait of name dumpable trait and its alreay avaiible in number of clasess for debugging but if we make our own class then we have to include dumpabale trait in that class. 
@@ -175,6 +177,24 @@ class Car
     {
         return "Driving the {$this->year} {$this->make} {$this->model}";
     }
+}
+
+----------------------------------------------------------------------------------
+
+video-7 (Limitless Limits for Eager Loading)
+
+Limiting the number of records on an eager loaded relationship in Laravel has historically been a pain, with a number of unexpected side effects. In Laravel 11, we can finally lay that issue to rest, because it now works exactly as you’d expect.
+
+return User::with(['posts' => fn($query) => $query->latest()->limit(2)])->get();
+
+here we apply array syntax for posts so we can apply custom logic to it.
+in previous version it just load the logic for the first index but not for others because og limits in SQL. you have to install severl pacakges for it.
+in laravel 11 the problem is solved now it changes it work directly.
+
+we can also achive this on relation in model.
+public function latestPosts(): HasMany
+{
+    return $this->hasMany(Post::class)->latest()->limit(2);
 }
 
 ----------------------------------------------------------------------------------
