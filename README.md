@@ -198,3 +198,69 @@ public function latestPosts(): HasMany
 }
 
 ----------------------------------------------------------------------------------
+
+video-8 (Super Simple Memoization)
+
+Closures are often used as callback functions.
+
+We all have different methods for memoization - the technique of caching an expensive operation for the lifecycle of a request. In Laravel 11, we can memoize any value with a single, simple function called once.
+
+this is custom method to memorize a value.
+
+class MemoizationService
+{
+    private $cachedResult = null;
+
+    public function getResult()
+    {
+        if ($this->cachedResult === null) {
+            $this->cachedResult = $this->expensiveOperation();
+        }
+
+        return $this->cachedResult;
+    }
+
+    private function expensiveOperation()
+    {
+        // Simulating an expensive operation
+        sleep(2);
+        return "Result of expensive operation";
+    }
+}
+
+here we used laravel once functin to memoize a value
+
+class MemoizationService
+{
+    public function getResult()
+    {
+        once(fn() => $this->cachedResult = $this->expensiveOperation());
+    }
+
+    private function expensiveOperation()
+    {
+        sleep(2);
+        return "Result of expensive operation";
+    }
+}
+
+another example
+
+public function boot(): void
+    {
+        Request::macro('identifier', function() {
+            return once(fn() => Str::uuid());
+        } );
+
+    }
+
+    dump($request->identifier());
+    dump($request->identifier());
+    dump($request->identifier());
+
+
+Macro: In Laravel, the Request::macro() method is used to define custom macros on the Illuminate\Http\Request class. This method allows you to extend the functionality of the Request object by adding custom methods that can be used throughout your application.
+
+If you use once in a class and declare different instances of that class then the once cache value must be different of the same class.
+
+----------------------------------------------------------------------------------------
