@@ -264,3 +264,27 @@ Macro: In Laravel, the Request::macro() method is used to define custom macros o
 If you use once in a class and declare different instances of that class then the once cache value must be different of the same class.
 
 ----------------------------------------------------------------------------------------
+
+video-9 (A Minor Tweak to Model Casts)
+
+All Laravel developers are familiar with the $casts property. That property will still work in Laravel 11, but the new default is a casts method instead. What's the reason for the change? Let me quickly demonstrate!
+
+old
+protected $casts = [
+        'start_time' => 'time:H:i:s',
+        'end_time' => 'time:H:i:s',
+    ];
+
+new (by default)
+
+This method is useful when you need more flexibility in defining the casts, or when you want to generate the casts dynamically based on certain factors.
+there is some error given when generate dynamic casts attributes. so if we use this method than that error will resolved automatically.
+
+protected function casts(): array
+    {
+        return [
+            'published_at' => 'datetime'
+        ];
+    }
+
+----------------------------------------------------------------------------------------
