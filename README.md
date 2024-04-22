@@ -80,7 +80,7 @@ then you can check in cmd by write command
 
 --------------------------------------------------------------------------------
 
-video-3 (Installing an API)
+video-4 (Installing an API)
 
 If you look in the routes directory, you’ll notice that there are a couple of files missing, including api.php. Don’t panic, when you need an API for your app, it’s just an Artisan command away.
 
@@ -105,10 +105,76 @@ it will install all the files related to broadcast events
 
 --------------------------------------------------------------------------------
 
-video-3 (Sqlite Out of the Box)
+video-5 (Sqlite Out of the Box)
 
 Here's a little change that I think explains the entire ethos behind the skeleton changes found in Laravel 11 - SQLite is now configured out of the box.
 
 mean that by default the database will be sqlite you have to change it to mysql.
 
 --------------------------------------------------------------------------------
+
+video-5 (The Dumpable Trait)
+
+A number of classes in Laravel have dump and dd methods available for quick debugging. With Laravel 11, it’s a breeze to add the same functionality to your own classes.
+
+dump
+It's a helper function used for debugging purposes. When you call dump() in your Laravel code, it will display the contents of the variable or expression passed to it but the script will not terminated.
+
+dd
+which stands for "Dump and Die." It's a helper function used for debugging purposes. When you call dd() in your Laravel code, it will display the contents of the variable or expression passed to it and then terminate the script execution.
+
+we cam also use in between the queries like this
+User::latest()->limit(5)->dd()->get();
+
+in laravel 11 its not a helper funciton but its a trait of name dumpable trait and its alreay avaiible in number of clasess for debugging but if we make our own class then we have to include dumpabale trait in that class. 
+
+we have add dumpable trait in this custom class without trait it will not work. and you can overwrite these functins.
+<?php
+
+namespace App;
+
+use Illuminate\Support\Traits\Dumpable;
+
+class Car
+{
+    use Dumpable;
+
+    private $make;
+    private $model;
+    private $year;
+
+    public function __construct($make, $model, $year)
+    {
+        $this->make = $make;
+        $this->model = $model;
+        $this->year = $year;
+    }
+
+    public function dump(...$args) {
+        dump($this, ...$args);
+
+        return $this;
+    }
+
+    public function getMake()
+    {
+        return $this->make;
+    }
+
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    public function drive()
+    {
+        return "Driving the {$this->year} {$this->make} {$this->model}";
+    }
+}
+
+----------------------------------------------------------------------------------
