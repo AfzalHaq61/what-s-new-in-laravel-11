@@ -347,6 +347,14 @@ Route::get('/', function () {
 
 ----------------------------------------------------------------------------------------
 
+Video 12 (Encryption Key Rotation)
+
+Occasionally rotating your application's encryption key is considered a good security practice, but it terminates user sessions and can even cause exceptions when old data is encountered! Thankfully, Laravel 11 allows us to keep a list of previous keys that it will check against when decrypting.
+
+In Laravel, the APP_KEY is a crucial configuration parameter stored in the .env file. It's used for encrypting and decrypting data, including session data, cookies, and more. The key needs to be kept secure because it's fundamental for the security of your application.
+
+----------------------------------------------------------------------------------------
+
 Video 13 (No Need for Flags)
 
 Whilst Laravel has supported both PHPUnit and Pest PHP as testing frameworks for a while now, Pest has always felt a little like a second class citizen. Laravel is now able to determine which test framework you're using, so you never have to remember to use that --pest flag.
