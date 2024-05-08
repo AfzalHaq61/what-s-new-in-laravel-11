@@ -346,3 +346,9 @@ Route::get('/', function () {
 });
 
 ----------------------------------------------------------------------------------------
+
+Video 13 (No Need for Flags)
+
+Whilst Laravel has supported both PHPUnit and Pest PHP as testing frameworks for a while now, Pest has always felt a little like a second class citizen. Laravel is now able to determine which test framework you're using, so you never have to remember to use that --pest flag.
+
+----------------------------------------------------------------------------------------
