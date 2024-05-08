@@ -288,3 +288,40 @@ protected function casts(): array
     }
 
 ----------------------------------------------------------------------------------------
+
+video-10 (Per Second Rate Limits)
+
+Have you had chance to use Laravel's rate limiter? It's pretty powerful. However, it's historically only been able to limit requests by the minute. Laravel 11 allows you to go further with per-second rate limiting, allowing for even more fine-grained control.
+
+Laravel now supports "per-second" rate limiting for all rate limiters, including those for HTTP requests and queued jobs. Previously, Laravel's rate limiters were limited to "per-minute" granularity:
+
+- This should be define in appServiceProvider
+
+RateLimiter::for('invoices', function (Request $request) {
+    return Limit::perSecond(1);
+});
+
+RateLimiter::for('login', function (Request $request) {
+    return [
+        Limit::perMinute(500),
+        Limit::perMinute(3)->by($request->input('email')),
+    ];
+});
+
+- globally we can apply to the whole apis by this method in apps.php in bootstrap folder.
+->withMiddleware(function (Middleware $middleware) {
+        $middleware->api('throttle:api');
+    })
+
+- apply to specific routes or groups of routes.
+Route::middleware(['throttle:uploads'])->group(function () {
+    Route::post('/audio', function () {
+        // ...
+    });
+ 
+    Route::post('/video', function () {
+        // ...
+    });
+});
+
+----------------------------------------------------------------------------------------
