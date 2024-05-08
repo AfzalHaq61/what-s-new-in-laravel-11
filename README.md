@@ -325,3 +325,24 @@ Route::middleware(['throttle:uploads'])->group(function () {
 });
 
 ----------------------------------------------------------------------------------------
+
+Video 11 (Retrying Asynchronous Requests)
+
+Laravel allows us to make concurrent requests to external APIs using the handy Http::pool method. However, you may have noticed that certain options, like retrying failed requests, aren't supported… until now.
+
+Route::get('/', function () {
+    try {
+        $conversionRates = Http::pool(fn (Pool $pool) => [
+            $pool->as('GBP')->retry(3)->get("http://flaky.test/api/conversion/GBP"),
+            $pool->as('USD')->retry(3)->get("http://flaky.test/api/conversion/USD"),
+            $pool->as('EUR')->retry(3)->get("http://flaky.test/api/conversion/EUR"),
+        ]);
+    } catch (ConnectionException $e) {
+        // Handle connection error
+        return response()->json(['error' => 'Connection error'], 500);
+    }
+
+    return collect($conversionRates)->map(fn (Response $response) => $response->body());
+});
+
+----------------------------------------------------------------------------------------
